@@ -10,6 +10,7 @@ public class Methods {
     {
         long startTimeMs = System.currentTimeMillis();
         System.out.printf("Midpoint Rule: %.2f\n", getMidpointForX2(1,5,20));
+        System.out.printf("Midpoint Rule 2: %.2f\n", getMidpoint(1,5,20,new X2()));
         long endTimeMs = System.currentTimeMillis();
         System.out.println("Time (ms): " + (endTimeMs - startTimeMs));
         startTimeMs = System.currentTimeMillis();
@@ -29,7 +30,7 @@ public class Methods {
     public static double getMidpoint(double a, double b, int n, Function f)
     {
         Interval[] intervals = getIntervals(a, b, n);
-
+        System.out.println(a + "\n" + b + "\n" + n + "\n" + f);
         double result = 0;
         for (int i = 0; i < intervals.length-1; i++)
         {
@@ -63,9 +64,16 @@ public class Methods {
     /*
      * Returns the simpsons sum for any function from a to b
      */
-    public static double getSimpsons(double a, double b, Function f)
+    public static double getSimpsons(double a, double b, int n, Function f)
     {
-        return ((b - a)/6.0)*(f.evaluate(a) + 4*f.evaluate((a + b)/2.0) + f.evaluate(b));
+        Interval[] intervals = getIntervals(a, b, n);
+        double result = 0;
+        for (int i = 0; i < intervals.length-1; i++)
+        {
+            result += ((b - a)/6.0)*(f.evaluate(intervals[i].getX1()) + 4*f.evaluate((intervals[i].getX1() + intervals[i].getX2())/2.0) + f.evaluate(intervals[i].getX2()));
+        }
+        result /= n;
+        return result;
     }
     /*
      * Returns the trapezoidal sum for x^2 with n steps from a to b

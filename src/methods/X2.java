@@ -7,6 +7,11 @@ package methods;
  */
 public class X2 extends Function {
 
+    public String toString()
+    {
+        return "x^2";
+    }
+
     public double evaluate(double x)
     {
         return Math.pow(x,2);
