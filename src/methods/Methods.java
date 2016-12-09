@@ -5,24 +5,6 @@ package methods;
  */
 public class Methods {
 
-    // function testing
-    public static void main(String[] args)
-    {
-        long startTimeMs = System.currentTimeMillis();
-        System.out.printf("Midpoint Rule: %.2f\n", getMidpointForX2(1,5,20));
-        System.out.printf("Midpoint Rule 2: %.2f\n", getMidpoint(1,5,20,new X2()));
-        long endTimeMs = System.currentTimeMillis();
-        System.out.println("Time (ms): " + (endTimeMs - startTimeMs));
-        startTimeMs = System.currentTimeMillis();
-        System.out.println("Simpson's Rule: " + getSimpsonsForX2(1,5));
-        endTimeMs = System.currentTimeMillis();
-        System.out.println("Time (ms): " + (endTimeMs - startTimeMs));
-        startTimeMs = System.currentTimeMillis();
-        System.out.println("Trapezoidal Rule: " + getTrapezoidalForX2(1,5,20));
-        endTimeMs = System.currentTimeMillis();
-        System.out.println("Time (ms): " + (endTimeMs - startTimeMs));
-    }
-
     /*
      * Returns the midpoint sum for any passed-in function with n steps
      * from a to b
@@ -30,10 +12,14 @@ public class Methods {
     public static double getMidpoint(double a, double b, int n, Function f)
     {
         Interval[] intervals = getIntervals(a, b, n);
-        System.out.println(a + "\n" + b + "\n" + n + "\n" + f);
+        //System.out.println(a + "\n" + b + "\n" + n + "\n" + f);
         double result = 0;
         for (int i = 0; i < intervals.length-1; i++)
         {
+           // System.out.println("Result: " + result);
+            //System.out.println(intervals[i]);
+            //System.out.println("Midpoint" + getMidpointOfInterval(intervals[i]));
+            //System.out.println("Value" + f.evaluate(getMidpointOfInterval(intervals[i])));
             result += f.evaluate(getMidpointOfInterval(intervals[i]));
         }
         result *= (b-a)/n;
@@ -45,7 +31,6 @@ public class Methods {
     public static double getMidpointForX2(double a, double b, int n)
     {
         Interval[] intervals = getIntervals(a, b, n);
-
         double result = 0;
         for (int i = 0; i < intervals.length-1; i++)
         {
@@ -127,8 +112,11 @@ public class Methods {
             Interval interval = new Interval(start,end);
             //System.out.println(interval);
             intervals[i] = interval;
+          //  System.out.println("Start" + start);
             start = end;
+           // System.out.println("End" + end);
         }
+       // System.out.println(intervals);
         return intervals;
     }
 

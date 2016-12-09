@@ -35,10 +35,10 @@ public class Display{
          simpsonsModel.addElement("Simpson's");
          trapezoidalModel = new DefaultListModel();
          trapezoidalModel.addElement("Trapezoidal");
-
          myFrame = new JFrame("Approximating Definite Integrals");
          myFrame.setLocationRelativeTo(null);
-         myFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+         //myFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+         myFrame.setSize(900,800);
          myPanel = new JPanel();
          calculate = new JButton("Calculate!");
          calculate.addActionListener(new CalculationListener());
@@ -58,11 +58,13 @@ public class Display{
          myPanel.add(bName);
          myPanel.add(inputB);
          myPanel.add(calculate);
-         myFrame.add(myPanel);
+
          myPanel.add(step);
          myPanel.add(midpoint);
          myPanel.add(simpsons);
          myPanel.add(trapezoidal);
+
+         myFrame.add(myPanel);
          myFrame.setVisible(true);
          myFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
      }
@@ -116,14 +118,17 @@ public class Display{
              simpsonsModel.addElement("Simpson's");
              trapezoidalModel.addElement("Trapezoidal");
              a = Double.parseDouble(inputA.getText());
-             System.out.println(a);
+             //System.out.println(a);
              b = Double.parseDouble(inputB.getText());
-             System.out.println(b);
+             //System.out.println(b);
              for (int i = 1; i <= 20; i++) {
                  stepModel.addElement("n = " + i);
-                 midpointModel.addElement("" + Methods.getMidpoint(a, b, i, myFunction));
-                 trapezoidalModel.addElement("" + Methods.getTrapezoidal(a, b, i, myFunction));
-                 simpsonsModel.addElement("" + Methods.getSimpsons(a, b, i, myFunction));
+                 double val = Methods.getMidpoint(a, b, i, myFunction);
+                 midpointModel.addElement(String.format("%.6f", val));
+                 val = Methods.getTrapezoidal(a, b, i, myFunction);
+                 trapezoidalModel.addElement(String.format("%.6f", val));
+                 val = Methods.getSimpsons(a, b, i, myFunction);
+                 simpsonsModel.addElement(String.format("%.6f", val));
              }
 
 
